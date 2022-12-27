@@ -1,0 +1,56 @@
+#include <iostream>
+#include <array>
+using namespace std;
+
+const int STACK_SIZE = 100;
+
+class Stack {
+private:
+    std::array<int, STACK_SIZE> data;
+    int top;
+
+public:
+    Stack() : top(-1) {}
+
+    void push(int x) {
+        if (top == STACK_SIZE - 1) {
+            std::cerr << "Error: Stack overflow" << std::endl;
+        } else {
+            data[++top] = x;
+        }
+    }
+
+    int pop() {
+        if (top == -1) {
+            std::cerr << "Error: Stack underflow" << std::endl;
+            return 0;
+        } else {
+            return data[top--];
+        }
+    }
+
+    bool is_empty() const {
+        return top == -1;
+    }
+};
+
+int main() {
+    Stack stack;
+
+    cout << "Enter a list of integers, separated by spaces. Enter -1 to stop." << endl;
+
+    int x;
+    cin >> x;
+    while (x != -1) {
+        stack.push(x);
+        cin >> x;
+    }
+
+    cout << "The stack contains: ";
+    while (!stack.is_empty()) {
+        cout << stack.pop() << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
